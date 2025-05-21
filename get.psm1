@@ -1,5 +1,15 @@
-# Din API-nyckel från TMDB
+# Ladda nycklar från .env
+Get-Content .env | ForEach-Object {
+    if ($_ -match "^(.*?)=(.*)$") {
+        $name, $value = $matches[1], $matches[2]
+        if (-not [System.Environment]::GetEnvironmentVariable($name)) {
+            [System.Environment]::SetEnvironmentVariable($name, $value)
+        }
+    }
+}
 
+# Din API-nyckel från TMDB
+$apiKey = $env:apiKey
 
 # Fråga användaren efter filmtitel
 $movieTitle = Read-Host "Skriv in en filmtitel"
@@ -25,4 +35,3 @@ if ($response.results.Count -eq 0) {
         Write-Host "🖼️ Poster: $posterUrl"
     }
 }
-Import-Module "$PSScriptRoot\get.psm1"
