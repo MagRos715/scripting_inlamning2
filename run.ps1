@@ -25,3 +25,4 @@ if ($response.results.Count -eq 0) {
         Write-Host "🖼️ Poster: $posterUrl"
     }
 }
+Import-Module "$PSScriptRoot\get.psm1"
