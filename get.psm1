@@ -14,8 +14,13 @@ function Get-MovieInfo {
     $apiKey = $env:apiKey
 
     # Fråga användaren efter filmtitel
+    do {
     $movieTitle = Read-Host "Skriv in en filmtitel"
     $encodedTitle = [System.Web.HttpUtility]::UrlEncode($movieTitle)
+    if (-not $movieTitle) {
+        Write-Host "❗ Du måste skriva in en titel." -ForegroundColor Yellow
+    }
+    } while (-not $movieTitle)
 
     # Skapa URL och anropa API
     $url = "https://api.themoviedb.org/3/search/movie?api_key=$apiKey&query=$encodedTitle&language=sv-SE"
